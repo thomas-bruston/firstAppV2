@@ -1,0 +1,96 @@
+<div class="space-y-6">
+
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-900">Produits</h1>
+    <a routerLink="/products/new">
+      <app-button>Nouveau produit</app-button>
+    </a>
+  </div>
+
+  <!--Search bar-->
+
+<input
+  type="text"
+  placeholder="Rechercher un produit..."
+  [value]="searchQuery()"
+  (input)="onSearch($event)"
+  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-500"
+/>
+
+<!-- Select-->
+ 
+<select
+  [value]="sortQuery()"
+  (change)="onSort($event)"
+  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-500 bg-white">
+  <option value="">Trier par...</option>
+  <option value="price-asc">Prix croissant</option>
+  <option value="price-desc">Prix décroissant</option>
+  <option value="rating">Meilleures notes</option>
+</select>
+
+@if (store.loading()) {
+  <div class="flex justify-center py-12">
+    <div class="w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+}
+@if (store.error()) {
+  <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+    {{ store.error() }}
+  </div>
+}
+
+<!--bloc card des produits-->
+
+@if (store.hasProducts()){
+    <div class = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+        @for (product of store.products();track product.id){
+            <app-card>
+                <img [src]="product.thumbnail" [alt]="product.title" class="w-full h-48 object-cover rounded-xl mb-4" />
+                <span class="text-xs font-medium text-primary-600 uppercase">{{ product.category }}</span>
+                    <h2 class="font-semibold text-gray-900 mt-1 mb-2">{{ product.title }}</h2>
+                        <p class="text-sm text-gray-500 line-clamp-2">{{ product.description }}</p>
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="text-lg font-bold text-gray-900">{{ product.price | currency:'EUR' }}</span>
+                                <div class="flex gap-2">
+                                    <a [routerLink]="['/products', product.id]">
+                                    <app-button variant="secondary" size="sm">Voir</app-button>
+                                    </a>
+                                        <app-button variant="danger" size="sm" (click)="onDelete(product.id)">
+                                        Supprimer
+                                        </app-button>
+                                </div>
+                        </div>
+            </app-card>
+        }
+        </div>
+
+        <div class="flex items-center justify-between py-4">
+            <p class="text-sm text-gray-500">
+                page {{ store.currentPage() }} 
+            </p>
+                <div class="flex gap-4">
+                    <app-button
+                    variant="secondary"
+                    [disabled]="store.currentPage() === 1"
+                    (click)="onPrevPage()">
+                    Précédent
+                    </app-button>
+                    <app-button
+                    [disabled]="store.currentPage() === store.totalPages()"
+                    (click)="onNextPage()">
+                    Suivant
+                    </app-button>
+                </div>
+        </div>
+}
+@if (!store.loading() && !store.hasProducts() && !store.error()) {
+  <div class="flex flex-col items-center justify-center py-24 text-center">
+    <p class="text-6xl mb-4">🔍</p>
+    <h2 class="text-xl font-bold text-gray-700 mb-2">Aucun produit trouvé</h2>
+    <p class="text-gray-500 mb-6">Essaie avec un autre mot clé</p>
+    <app-button variant="secondary" (click)="onReset()">
+      Voir tous les produits
+    </app-button>
+  </div>
+}

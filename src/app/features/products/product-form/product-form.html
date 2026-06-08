@@ -1,0 +1,73 @@
+<div class="max-w-2xl mx-auto space-y-6">
+
+    <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-gray-900">
+        {{ isEditMode ? 'Modifier le produit' : 'Nouveau produit' }}
+        </h1>
+        <a routerLink="/products" class="text-sm text-gray-500 hover:text-gray-700">
+        ← Annuler
+        </a>
+    </div>
+
+
+
+    <app-card>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4" >
+
+            <app-input
+                formControlName='title'
+                label="Titre"
+                placeholder="Ex:iPhone 17"
+                [errorMessage]="titleError">    
+            </app-input>
+
+            <app-input
+                formControlName='description'
+                label="description"
+                placeholder="Ex:smartphone de qualité"
+                [errorMessage]="descriptionError">
+            </app-input>
+
+            <div class="grid grid-cols-2 gap-4">
+                <app-input
+                    formControlName='price'
+                    label="Prix"
+                    placeholder="Ex:300 €"
+                    [errorMessage]="priceError">
+                </app-input>
+                <app-input
+                    formControlName = 'stock'
+                    label="Stock"
+                    placeholder="Ex: 14"
+                    [errorMessage]="stockError">
+                </app-input>
+            </div>
+
+            <app-input
+                formControlName='category'
+                label="Categorie"
+                placeholder="Ex : Smartphone"
+                [errorMessage]="categoryError">
+            </app-input>
+
+            <app-input
+                formControlName='thumbnail'
+                label="Thumbnail"
+                placeholder="https://..."
+                [errorMessage]="thumbnailError">
+            </app-input>
+
+            <div class="flex gap-3 pt-2">
+                <app-button type="submit">
+                    {{isEditMode? 'Enregistrer' : 'Créer'}}
+                </app-button>
+                <a routerLink="/products">
+                    <app-button variant="secondary" type="button">
+                        Annuler
+                    </app-button>
+                </a>
+
+            </div>
+        </form>
+    </app-card>
+</div>

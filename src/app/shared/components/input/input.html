@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-1">
+
+  @if (label) {
+    <label class="text-sm font-medium text-gray-700">{{ label }}</label>
+  }
+
+  <input
+    [class]="classes"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [value]="value"
+    (input)="onInput($event)"
+    (blur)="onTouched()"
+  />
+
+  @if (errorMessage) {
+    <p class="text-xs text-danger-500">{{ errorMessage }}</p>
+  }
+
+</div>
