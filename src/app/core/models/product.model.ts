@@ -7,8 +7,9 @@ export interface IProduct{
     category : string;
     stock : number;
     thumbnail : string;
+    discountPercentage : number;
 
 }
 
-export type IProductCreate = Omit <IProduct, 'id'>
+export type IProductCreate = Omit <IProduct, 'id'| 'discountPercentage'>
 export type IProductUpdate = Partial<IProductCreate> & {id:number}

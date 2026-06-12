@@ -2,7 +2,7 @@ import { Component,Input } from '@angular/core';
 import { cva } from 'class-variance-authority';
 
 const cardVariants = cva(
-  'bg-white rounded-xl border border-gray-200',
+  'bg-white rounded-xl border border-gray-200 relative',
   {
     variants : {
         padding : {

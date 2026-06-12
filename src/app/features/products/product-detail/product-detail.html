@@ -37,13 +37,18 @@
           </span>
         </div>
         <div class="flex gap-3 pt-4">
-          <a [routerLink]="['/products', id, 'edit']">
-            <app-button variant="primary">Modifier</app-button>
-          </a>
-          <a routerLink="/products">
-            <app-button variant="secondary">Retour</app-button>
-          </a>
-        </div>
+  <app-button 
+    variant="primary" 
+    (click)="router.navigate(['/products', id, 'edit'])">
+    Modifier
+  </app-button>
+  
+  <app-button 
+    variant="secondary" 
+    (click)="router.navigate(['/products'])">
+    Retour
+  </app-button>
+</div>
       </div>
 
     </div>

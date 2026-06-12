@@ -18,11 +18,11 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
   @for (category of categories(); track category.slug) {
-    <a [routerLink]="['/products']" [queryParams]="{category : category.slug}">
-        <app-card>
+    <a [routerLink]="['/products']" [queryParams]="{ category: category.slug }">
+      <app-card>
         <h2 class="font-semibold text-gray-900 capitalize">{{ category.name }}</h2>
         <p class="text-sm text-primary-600 mt-1">{{ category.slug }}</p>
-        </app-card>
+      </app-card>
     </a>
   }
 </div>

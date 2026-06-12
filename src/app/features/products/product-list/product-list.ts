@@ -24,6 +24,7 @@ searchQuery = signal('');
 sortQuery = signal('');
 @Input() sort? : string;
 @Input() category? : string;
+protected Math = Math;
 
 
 ngOnInit(): void {

@@ -43,25 +43,57 @@
 <!--bloc card des produits-->
 
 @if (store.hasProducts()){
-    <div class = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div class = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 '>
         @for (product of store.products();track product.id){
             <app-card>
+              <div class="flex gap-1">
+                @for (star of [1,2,3,4,5]; track star) {
+                  @if (star <= Math.round(product.rating)) {
+                    <span class="text-yellow-400">★</span>
+                  } @else {
+                    <span class="text-gray-400">★</span>
+                  }
+                }
+              </div>         
+              <div>
+                  @if(product.rating>4.0){
+                     <span class="absolute top-3 right-3 bg-green-500 text-white rounded-lg px-2">Nouveau</span>}
+              </div>
+              <!--stock-->
+              <div>
+                @if(product.stock>50){
+                <span class=" font-semibold text-green-600">En stock : {{product.stock}}</span>}
+                @if (product.stock>1 && product.stock<50) {
+                  <span class="text-yellow-400 font-semibold">Stock limité : {{product.stock}}</span>}
+                 @if(product.stock===0){
+                <span class="text-bg-red-600 font-semibold">En rupture</span>}
+              </div>
+              <!--thumbnail/category/title/price-->
                 <img [src]="product.thumbnail" [alt]="product.title" class="w-full h-48 object-cover rounded-xl mb-4" />
                 <span class="text-xs font-medium text-primary-600 uppercase">{{ product.category }}</span>
                     <h2 class="font-semibold text-gray-900 mt-1 mb-2">{{ product.title }}</h2>
                         <p class="text-sm text-gray-500 line-clamp-2">{{ product.description }}</p>
                         <div class="flex items-center justify-between mt-4">
-                            <span class="text-lg font-bold text-gray-900">{{ product.price | currency:'EUR' }}</span>
+                          <div>
+                            @if(product.discountPercentage>10){
+                              <span class="font-bold text-gray-400 line-through">
+                                {{ product.price / (1 - product.discountPercentage / 100) | currency:'EUR' }}
+                              </span>
+                            } 
+                              <span class="text-lg font-bold text-gray-900">{{ product.price | currency:'EUR' }}
+                              </span>
+                          </div>
+                        
+                            
+                            <!--buttons voir/ supprimer-->
                                 <div class="flex gap-2">
                                     <a [routerLink]="['/products', product.id]">
                                     <app-button variant="secondary" size="sm">Voir</app-button>
                                     </a>
-                                        <app-button variant="danger" size="sm" (click)="onDelete(product.id)">
-                                        Supprimer
-                                        </app-button>
+                                        <app-button variant="danger" size="sm" (click)="onDelete(product.id)"> Supprimer</app-button>         
                                 </div>
                         </div>
-            </app-card>
+             </app-card>
         }
         </div>
 

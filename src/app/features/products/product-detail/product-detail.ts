@@ -1,5 +1,5 @@
 import { Component,OnInit,inject,Input,signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router,RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { ProductStore } from '../../../core/store/product.store';
 import { IProductComment } from '../../../core/models/comment.model';
@@ -19,6 +19,7 @@ export class ProductDetail implements OnInit{
   readonly store = inject(ProductStore);
   private readonly commentService = inject(Comment);
   private readonly titleService = inject(Title);
+  router = inject(Router);
   @Input() id!: string;
   comments = signal<IProductComment[]>([]);
   commentsLoading = signal(false);

@@ -1,33 +1,6 @@
-<div class="min-h-screen flex flex-col">
-
-  <nav class="bg-white border-b border-gray-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-
-        <a routerLink="/" class="flex items-center gap-2">
-          <img src="/images/logoAngular.webp" alt="FirstApp logo" class="h-8 w-auto" />
-          <span class="text-xs text-gray-400 font-mono">v1.0</span>
-        </a>
-
-        <div class="flex items-center gap-1">
-          <a routerLink="/products" routerLinkActive="bg-primary-50 text-primary-600" class="px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
-            Produits
-          </a>
-          <a routerLink="/categories" routerLinkActive="bg-primary-50 text-primary-600" class="px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
-            Catégories
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </nav>
-
+<app-header></app-header>
   <main class="flex-1 page-container">
     <router-outlet />
   </main>
+ <app-footer></app-footer>
 
-  <footer class="border-t border-gray-200 bg-white py-4 text-center text-sm text-gray-400">
-    FirstAppV2 — Angular 21 · NgRx Signals · Tailwind CSS
-  </footer>
-
-</div>
