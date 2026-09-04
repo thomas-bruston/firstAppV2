@@ -1,59 +1,82 @@
-# FirstAppV2
+# firstAppV2 
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+Catalogue de produits e-commerce développé avec **Angular 21**, entièrement construit autour des **Signals** et de **NgRx Signal Store**, sans Zone.js.
 
-## Development server
+Ce projet est une V2 d'une première version, pensée pour explorer en profondeur les patterns Angular les plus récents (state management signal-based, zoneless change detection, signal inputs) plutôt que les approches RxJS/décorateurs classiques.
 
-To start a local development server, run:
+**Repo** : [github.com/thomas-bruston/firstAppV2](https://github.com/thomas-bruston)
+
+
+## Fonctionnalités
+
+- **Accueil** — page de bienvenue avec redirection vers le catalogue
+- **Catalogue produits** — liste paginée, recherche en temps réel (debounce 400ms), tri (prix, note), filtrage par catégorie — le tout synchronisé avec les query params de l'URL
+- **Détail produit** — informations produit + commentaires associés
+- **Création / édition de produit** — formulaire réactif validé, un seul composant réutilisé pour les deux modes
+- **Catégories** — liste des catégories disponibles
+- **Gestion des erreurs de navigation** — page 404 sur route inconnue
+
+Toutes les fonctionnalités sont chargées en **lazy loading** depuis `app.routes.ts`.
+
+## Stack technique
+
+| Domaine | Choix |
+|---|---|
+| Framework | Angular 21.2 (standalone, zoneless) |
+| State management | NgRx Signal Store (`@ngrx/signals` 21.1) |
+| Style | Tailwind CSS 3.4 + thème personnalisé |
+| Composants UI | Design system maison (`class-variance-authority`) |
+| Formulaires | Reactive Forms |
+| HTTP | `provideHttpClient(withFetch())` |
+| Tests | Vitest |
+| API | [DummyJSON](https://dummyjson.com) |
+| RxJS | utilisé ponctuellement (debounce recherche, pipelines `rxMethod`) |
+
+## Points techniques mis en avant
+
+- **State management 100% signals** — `product.store.ts` illustre l'usage complet du Signal Store : `withState`, `withComputed` (`totalPages`, `hasProducts`...) et `withMethods` avec des `rxMethod` (`tap → switchMap → service → patchState`) plutôt que du `async/await`.
+- **Zoneless change detection** — `provideZonelessChangeDetection()` activé, tous les composants en `ChangeDetectionStrategy.OnPush`.
+- **Signal inputs** — usage de `input()` / `input.required()` combinés à `effect()` pour réagir aux changements, en remplacement des hooks de cycle de vie classiques (`ngOnInit`, `ngDoCheck`).
+- **État synchronisé avec l'URL** — recherche, tri, catégorie et pagination pilotés par les query params du router, avec un `effect()` du store qui réagit aux changements.
+- **Architecture en features lazy-loadées**, séparation claire `core` (services/store/models) / `features` / `shared`.
+- **Design system minimal** via `cva`, permettant des variantes de composants (`variant`, `size`) sans duplication de classes Tailwind.
+
+## Structure du projet
+
+```
+src/app/
+├── core/           # services, store, models
+├── features/       # home, products, categories (lazy-loaded)
+└── shared/         # composants UI (Header, Footer, Button, Card, Input, Toast)
+```
+
+## Installation et démarrage
 
 ```bash
+git clone https://github.com/thomas-bruston/firstAppV2.git
+cd firstAppV2
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+L'application est accessible sur `http://localhost:4200/`.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Tests
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+17 fichiers de tests (Vitest) couvrant l'ensemble des services et composants.
 
-For end-to-end (e2e) testing, run:
+## Pistes d'évolution
 
-```bash
-ng e2e
-```
+- Ajout d'un système d'authentification (login, guards de routes)
+- Gestion d'erreurs HTTP centralisée via un intercepteur
+- Renforcement de la couverture de tests (logique métier : tri, recherche, validation de formulaire)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Auteur
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Thomas Bruston** — Développeur Frontend Angular
+[LinkedIn](www.linkedin.com/in/thomas-bruston-0401a7315) · 
+[GitHub](https://github.com/thomas-bruston)
