@@ -1,6 +1,7 @@
 import { Component,Input,forwardRef,} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { cva } from 'class-variance-authority';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 const inputVariants = cva (
   'w-full rounded-lg border px-3 py-2 text-sm transition-colors focus:outline-none focus:ring-2',
@@ -22,6 +23,7 @@ const inputVariants = cva (
 
 @Component({
   selector: 'app-input',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: './input.html',
   styleUrl: './input.css',
