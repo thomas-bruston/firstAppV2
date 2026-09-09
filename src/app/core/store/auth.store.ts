@@ -36,6 +36,11 @@ withMethods((store) => ({
     patchState(store, { currentUser: null, accessToken: null, refreshToken: null, loading: false });
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+  },
+  setTokens(accessToken: string, refreshToken: string): void {
+    patchState(store, { accessToken, refreshToken });
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
   }
 })),
 
