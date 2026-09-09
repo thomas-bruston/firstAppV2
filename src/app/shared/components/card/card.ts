@@ -1,5 +1,6 @@
 import { Component,Input } from '@angular/core';
 import { cva } from 'class-variance-authority';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 const cardVariants = cva(
   'bg-white rounded-xl border border-gray-200 relative',
@@ -30,6 +31,7 @@ const cardVariants = cva(
 
 @Component({
   selector: 'app-card',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: './card.html',
   styleUrl: './card.css',

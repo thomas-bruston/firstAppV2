@@ -58,9 +58,13 @@
             </app-input>
 
                 <div class="flex gap-3 pt-2">
-                    <app-button type="submit">
-                        {{ isEditMode ? 'Enregistrer' : 'Créer' }}
-                    </app-button>
+                    <app-button type="submit" [disabled]="store.loading()">
+                        @if (store.loading()) {
+                            Enregistrement...
+                        } @else {
+                            {{ isEditMode ? 'Enregistrer' : 'Créer' }}
+                        }
+                        </app-button>
                     
                     <app-button 
                         variant="secondary" 
