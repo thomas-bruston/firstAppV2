@@ -1,6 +1,7 @@
 
 import { Component,Input } from '@angular/core';
 import { cva } from 'class-variance-authority';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 const buttonVariants = cva (
   'inline-flex items-center rounded-lg justify-center font-medium focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
@@ -14,7 +15,7 @@ const buttonVariants = cva (
       size : {
         sm : 'py-2 px-1 text-sm',
         md : 'py-4 px-2 text-sm',
-        lg : 'py-6 px-3 text-base',
+        lg : 'py-6 px-6 text-base',
 
       }
     },
@@ -28,6 +29,7 @@ const buttonVariants = cva (
 
 @Component({
   selector: 'app-button',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: './button.html',
   styleUrl: './button.css',

@@ -3,9 +3,11 @@ import { RouterLink } from '@angular/router';
 import { Category } from '../../../core/services/category';
 import { ICategory } from '../../../core/models/category.model';
 import { Card } from '../../../shared/components/card/card';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-category-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink,Card],
   templateUrl: './category-list.html',
   styleUrl: './category-list.css',
