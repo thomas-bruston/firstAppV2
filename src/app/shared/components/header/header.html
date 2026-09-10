@@ -18,6 +18,17 @@
           <a routerLink="/categories" routerLinkActive="bg-primary-50 text-primary-600" class="px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
             Catégories
           </a>
+          <div>
+            @if (store.isAuthenticated()) {
+              <h3>{{store.currentUser()?.username}}</h3>
+              <app-button variant="primary" (click)="logout()">Se deconnecter</app-button>
+            }@else {
+             <a routerLink="/login" routerLinkActive="bg-primary-50 text-primary-600" class="px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
+            Se connecter
+          </a>
+
+            }
+          </div>
         </div>
 
       </div>
