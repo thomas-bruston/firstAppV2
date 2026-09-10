@@ -41,6 +41,7 @@ export class AppInput implements ControlValueAccessor{
   @Input() placeholder = '';
   @Input() errorMessage = '';
   @Input() disabled = false;
+  @Input() type = 'text';
 
   value = '';
   onChange = (_: string) => {}; 

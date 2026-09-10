@@ -15,6 +15,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     ? req.clone({ setHeaders: { Authorization: `Bearer ${accessToken}` } })
     : req;
 
+  const isAuthRequest = req.url.includes('/auth/login') || req.url.includes('/auth/refresh');
+    if (isAuthRequest) {
+      return next(clonedReq);
+}
+
+
   return next(clonedReq).pipe(
     catchError((error: HttpErrorResponse) => {
       const currentRefreshToken = store.refreshToken();

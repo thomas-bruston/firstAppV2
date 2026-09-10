@@ -23,6 +23,13 @@ export const routes: Routes = [
     import('./features/categories/categories.routes')
   .then( m => m.CATEGORIES_ROUTES)
 },
+
+ {
+    path: 'login',
+    loadChildren:() =>
+      import('./features/auth/auth.routes')
+       .then( m => m.AUTH_ROUTES)
+  },
    
   {
     path: '**',
@@ -30,4 +37,6 @@ export const routes: Routes = [
       import('./shared/components/not-found/not-found')
         .then(m => m.NotFound)
   }
+
+ 
 ];

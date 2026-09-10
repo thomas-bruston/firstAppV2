@@ -1,0 +1,23 @@
+<div class="max-w-2xl mx-auto space-y-6">
+            <h1 class="text-2xl font-bold text-gray-900">Connexion</h1>
+    <app-card>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+
+            <app-input formControlName='username' type="text" label="Username" placeholder="Ex:Alain Durand"
+                [errorMessage]="usernameError">
+            </app-input>
+
+            <app-input formControlName='password' type="password" label="password" placeholder="Ex:Treu567!45"
+                [errorMessage]="passwordError">
+            </app-input>
+
+            <app-button type="submit" [disabled]="store.loading()">
+                @if (store.loading()) {
+                Connexion...
+                } @else {
+                Se connecter
+                }
+            </app-button>
+        </form>
+    </app-card>
+</div>

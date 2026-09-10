@@ -1,7 +1,7 @@
 import { signalStore, withState, withMethods, withComputed, withHooks } from '@ngrx/signals';
 import { inject } from '@angular/core';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap } from 'rxjs';
+import { pipe, switchMap, tap, catchError, EMPTY } from 'rxjs';
 import { patchState } from '@ngrx/signals';
 import { computed } from '@angular/core';
 import { IAuthUser, ILoginRequest,ILoginResponse,IRefreshRequest,IRefreshResponse } from '../models/auth.model';
@@ -65,16 +65,18 @@ withMethods((store, authService = inject(Auth)) => ({
             localStorage.setItem('refreshToken',refreshToken)
             },
             error: (error) => patchState(store, {
-              error: error.message,
+              error: error.error?.message ?? error.message,
               loading: false
-            })
-          })
+            }),
+            
+          }),
+          catchError(() => EMPTY) ,
         )
       )
     )
   ),
 
-    refreshToken: rxMethod<IRefreshRequest>(
+    refresh: rxMethod<IRefreshRequest>(
     pipe(
       tap(() => patchState(store, { loading: true, error: null })),
       switchMap((credentials) =>
@@ -93,9 +95,10 @@ withMethods((store, authService = inject(Auth)) => ({
             },
             error: (error) => {
             store.logout();
-            patchState(store, { error: error.message });
+            patchState(store, { error: error.error?.message ?? error.message });
             }
-          })
+          }),
+          catchError(() => EMPTY) 
         )
       )
     )
@@ -110,9 +113,10 @@ withMethods((store, authService = inject(Auth)) => ({
           next: (user) => patchState(store, { currentUser: user, loading: false }),
           error: (error) => {
             store.logout();
-            patchState(store, { error: error.message });
+            patchState(store, { error: error.error?.message ?? error.message });
           }
-        })
+        }),
+        catchError(() => EMPTY) ,
       )
     )
   )
