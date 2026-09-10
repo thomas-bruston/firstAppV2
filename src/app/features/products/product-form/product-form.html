@@ -1,12 +1,9 @@
 <div class="max-w-2xl mx-auto space-y-6">
 
-    <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-gray-900">
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 text-center">
             {{ isEditMode ? 'Modifier le produit' : 'Nouveau produit' }}
         </h1>
-        <a routerLink="/products" class="text-sm text-gray-500 hover:text-gray-700">
-            ← Annuler
-        </a>
     </div>
 
 
@@ -17,7 +14,7 @@
             <app-input formControlName='title' label="Titre" placeholder="Ex:iPhone 17" [errorMessage]="titleError">
             </app-input>
 
-            <app-input formControlName='description' label="description" placeholder="Ex:smartphone de qualité"
+            <app-input formControlName='description' label="Description" placeholder="Ex:smartphone de qualité"
                 [errorMessage]="descriptionError">
             </app-input>
 
@@ -36,8 +33,8 @@
                 [errorMessage]="thumbnailError">
             </app-input>
 
-            <div class="flex gap-3 pt-2">
-                <app-button type="submit" [disabled]="store.loading()">
+            <div class="flex justify-center gap-3 pt-2">
+                <app-button type="submit" variant="success" [disabled]="store.loading()">
                     @if (store.loading()) {
                     Enregistrement...
                     } @else {

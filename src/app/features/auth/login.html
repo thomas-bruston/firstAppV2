@@ -1,23 +1,34 @@
-<div class="max-w-2xl mx-auto space-y-6">
-            <h1 class="text-2xl font-bold text-gray-900">Connexion</h1>
-    <app-card>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+<div class="max-w-md mx-auto px-4 py-16">
 
-            <app-input formControlName='username' type="text" label="Username" placeholder="Ex:Alain Durand"
-                [errorMessage]="usernameError">
-            </app-input>
+    <h1 class="text-3xl font-bold text-gray-900 text-center">Bonjour !</h1>
+    <p class="text-sm text-gray-500 text-center mt-3">
+        Pour vous connecter à votre compte, renseignez votre nom d'utilisateur ainsi que votre mot de passe.
+    </p>
 
-            <app-input formControlName='password' type="password" label="password" placeholder="Ex:Treu567!45"
-                [errorMessage]="passwordError">
-            </app-input>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-8 space-y-6">
 
-            <app-button type="submit" [disabled]="store.loading()">
-                @if (store.loading()) {
-                Connexion...
-                } @else {
-                Se connecter
-                }
-            </app-button>
-        </form>
-    </app-card>
+        <app-input formControlName='username' variant="filled" placeholder="Votre nom d'utilisateur"
+            [errorMessage]="usernameError">
+        </app-input>
+
+        <app-input formControlName='password' type="password" variant="filled" placeholder="Votre mot de passe"
+            [errorMessage]="passwordError">
+        </app-input>
+
+        <a href="#" class="block text-sm text-emerald-600 hover:text-emerald-700">Mot de passe oublié ?</a>
+
+        <app-button type="submit" variant="dark" [fullWidth]="true" [disabled]="store.loading()">
+            @if (store.loading()) {
+            Connexion...
+            } @else {
+            Se connecter
+            }
+        </app-button>
+    </form>
+
+    <p class="text-sm text-gray-500 text-center mt-8">
+        N'hésitez pas à nous contacter<br>
+        <a href="mailto:shopappsupport@proton.me" class="text-emerald-600 hover:text-emerald-700">shopappsupport@proton.me</a>
+    </p>
+
 </div>

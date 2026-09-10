@@ -20,8 +20,15 @@
   @for (category of categories(); track category.slug) {
     <a [routerLink]="['/products']" [queryParams]="{ category: category.slug }">
       <app-card>
-        <h2 class="font-semibold text-gray-900 capitalize">{{ category.name }}</h2>
-        <p class="text-sm text-primary-600 mt-1">{{ category.slug }}</p>
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+            <ng-container
+              [ngComponentOutlet]="iconFor(category.slug)"
+              [ngComponentOutletInputs]="{ class: 'w-5 h-5 text-emerald-600' }">
+            </ng-container>
+          </div>
+          <h2 class="font-semibold text-gray-900 capitalize">{{ category.name }}</h2>
+        </div>
       </app-card>
     </a>
   }

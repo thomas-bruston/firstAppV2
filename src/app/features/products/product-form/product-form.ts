@@ -1,6 +1,6 @@
 import { Component, inject, input, effect } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductStore } from '../../../core/store/product.store';
 import { Button } from '../../../shared/components/button/button';
 import { Card } from '../../../shared/components/card/card';
@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 @Component({
   selector: 'app-product-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, Button, Card, AppInput, ReactiveFormsModule],
+  imports: [Button, Card, AppInput, ReactiveFormsModule],
   templateUrl: './product-form.html',
   styleUrl: './product-form.css',
 })

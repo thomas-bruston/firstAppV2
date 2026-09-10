@@ -6,30 +6,43 @@
     </h1>
     
     <a routerLink="/products/new">
-      <app-button>Nouveau produit</app-button>
+      <app-button variant="success">Nouveau produit</app-button>
     </a>
   </div>
 
   <!--Search bar-->
 
-<input
-  type="text"
-  placeholder="Rechercher un produit..."
-  [formControl] = "searchControl"
-  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-500"
-/>
+<div class="relative">
+  <input
+    type="text"
+    placeholder="Rechercher un produit..."
+    [formControl] = "searchControl"
+    class="w-full rounded-full border border-slate-900 bg-gray-100 py-2.5 pl-5 pr-14 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+  />
+  <button
+    type="button"
+    aria-label="Rechercher"
+    class="absolute right-1 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-emerald-500 flex items-center justify-center hover:bg-emerald-600 transition-colors"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-4 h-4">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+    </svg>
+  </button>
+</div>
 
-<!-- Select-->
- 
-<select
-  [value]="sort ()?? ''"
-  (change)="onSort($event)"
-  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-500 bg-white">
-  <option value="">Trier par...</option>
-  <option value="price-asc">Prix croissant</option>
-  <option value="price-desc">Prix décroissant</option>
-  <option value="rating">Meilleures notes</option>
-</select>
+<!-- Tri -->
+
+<div class="flex justify-center gap-3">
+  <button type="button" [class]="sortPillClasses('price-asc')" (click)="onSortClick('price-asc')">
+    Prix croissant
+  </button>
+  <button type="button" [class]="sortPillClasses('price-desc')" (click)="onSortClick('price-desc')">
+    Prix décroissant
+  </button>
+  <button type="button" [class]="sortPillClasses('rating')" (click)="onSortClick('rating')">
+    Meilleures notes
+  </button>
+</div>
 
 @if (store.loading()) {
   <div class="flex justify-center py-12">
@@ -121,6 +134,7 @@
                     Précédent
                     </app-button>
                     <app-button
+                    variant="success"
                     [disabled]="store.currentPage() === store.totalPages()"
                     (click)="onNextPage()">
                     Suivant

@@ -94,13 +94,19 @@ export class ProductList implements OnInit {
 
 
 
-  onSort(event: Event): void {
-    const sort = (event.target as HTMLSelectElement).value;
+  onSortClick(sort: string): void {
     this.store.sortProducts(sort);
     this.router.navigate(['/products'], {
       queryParams: { sort: sort || null },
       queryParamsHandling: 'merge'
     });
+  }
+
+  sortPillClasses(value: string): string {
+    const base = 'px-4 py-2 rounded-full text-sm font-medium transition-colors';
+    return this.sort() === value
+      ? `${base} bg-emerald-500 text-slate-900`
+      : `${base} bg-slate-900 text-white hover:bg-slate-800`;
   }
 
   onPrevPage(): void {

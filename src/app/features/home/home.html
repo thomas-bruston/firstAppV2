@@ -1,9 +1,13 @@
-<div class="bg-blue-100 rounded-lg my-10 ">
-    
-    <div class="flex justify-center">
-        <img class="max-w-xs my-8  " src="images/logoAngular.webp" alt="logo du site">
+<div class="relative left-1/2 -mx-[50vw] w-screen -mt-8 mb-24 md:mb-32">
+    <div
+        class="h-80 md:h-96 overflow-hidden bg-cover bg-center"
+        style="background-image: url('/images/bannerShopApp.jpg')">
     </div>
-
+    <div class="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2">
+        <img src="/images/logoShopAppRond.webp" alt="ShopApp logo" class="h-48 w-48 md:h-64 md:w-64">
+    </div>
 </div>
 
-<app-button size = "lg" class="flex justify-center" (click)="goToProducts()">NOS PRODUITS</app-button>
+<div class="flex justify-center">
+    <app-button size="lg" variant="success" (click)="goToProducts()">NOS PRODUITS</app-button>
+</div>

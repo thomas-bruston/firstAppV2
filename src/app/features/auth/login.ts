@@ -1,10 +1,9 @@
 
 import { Component,inject } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router,RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthStore } from '../../core/store/auth.store';
 import { Button} from '../../shared/components/button/button';
-import { Card } from '../../shared/components/card/card';
 import { AppInput } from '../../shared/components/input/input';
 import { effect } from '@angular/core';
 import { Toast } from '../../core/services/toast';
@@ -14,7 +13,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 @Component({
   selector: 'app-login',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule,RouterLink,Button,Card,AppInput],
+  imports: [ReactiveFormsModule,Button,AppInput],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -49,8 +48,8 @@ constructor() {
 
   get usernameError(): string {
     const ctrl = this.form.get('username');
-    if (ctrl?.touched && ctrl?.hasError('required')) return 'le username est requis';
-    if (ctrl?.touched && ctrl?.hasError('minlength')) return 'Le username doit comporter 3 caractères minimum';
+    if (ctrl?.touched && ctrl?.hasError('required')) return 'Le nom d\'utilisateur est requis';
+    if (ctrl?.touched && ctrl?.hasError('minlength')) return 'Le nom d\'utilisateur doit comporter 3 caractères minimum';
     return '';
   }
 
