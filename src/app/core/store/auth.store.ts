@@ -131,7 +131,7 @@ withMethods((store, authService = inject(Auth)) => ({
 
         if ( accessToken && refreshToken ){
             patchState(store, { accessToken, refreshToken});
-            store.getCurrentUser();
+            setTimeout(() => store.getCurrentUser());
         }
     },
  })
