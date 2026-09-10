@@ -1,19 +1,25 @@
 import { Component,Input,forwardRef,} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { cva } from 'class-variance-authority';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 const inputVariants = cva (
-  'w-full rounded-lg border px-3 py-2 text-sm transition-colors focus:outline-none focus:ring-2',
+  'w-full transition-colors focus:outline-none focus:ring-2',
   {
     variants : {
       state : {
-        default : 'border-gray-300 focus:border-primary-500 focus:ring-primary-100',
-        error : 'border-danger-500 focus:border-danger-500 focus:ring-red-100',
-        disabled : 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed',
+        default : 'focus:ring-primary-100',
+        error : 'ring-2 ring-danger-500 focus:ring-danger-500',
+        disabled : 'bg-gray-50 text-gray-400 cursor-not-allowed',
+      },
+      variant : {
+        outlined : 'rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-primary-500',
+        filled : 'rounded-xl border-0 bg-gray-100 px-4 py-3 text-sm focus:ring-emerald-400',
       }
     },
     defaultVariants : {
-      state : 'default'
+      state : 'default',
+      variant : 'outlined'
     }
   }
 
@@ -22,6 +28,7 @@ const inputVariants = cva (
 
 @Component({
   selector: 'app-input',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: './input.html',
   styleUrl: './input.css',
@@ -39,6 +46,8 @@ export class AppInput implements ControlValueAccessor{
   @Input() placeholder = '';
   @Input() errorMessage = '';
   @Input() disabled = false;
+  @Input() type = 'text';
+  @Input() variant: 'outlined' | 'filled' = 'outlined';
 
   value = '';
   onChange = (_: string) => {}; 
@@ -52,7 +61,7 @@ export class AppInput implements ControlValueAccessor{
   }
 
   get classes(): string {
-    return inputVariants({ state: this.state });
+    return inputVariants({ state: this.state, variant: this.variant });
   }
 writeValue(value: string): void {
   this.value = value?? '';

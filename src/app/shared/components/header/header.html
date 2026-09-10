@@ -1,0 +1,66 @@
+<div class="flex flex-col">
+
+  <nav class="bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+      <div class="flex items-center gap-6 h-20">
+
+        <a routerLink="/" class="shrink-0 flex items-center">
+          <img src="/images/logoShopAppRond.webp" alt="ShopApp logo" class="h-14 w-auto" />
+        </a>
+
+        <form (submit)="onSearch($event, searchInput)" class="flex-1 relative">
+          <input #searchInput type="text" placeholder="Qu'est-ce qui vous ferait plaisir ?"
+            class="w-full rounded-full border-0 py-2.5 pl-5 pr-14 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+          <button type="submit" aria-label="Rechercher"
+            class="absolute right-1 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-emerald-500 flex items-center justify-center hover:bg-emerald-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white"
+              class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </button>
+        </form>
+
+        <div class="shrink-0 flex items-center gap-5 text-white text-sm">
+          @if (store.isAuthenticated()) {
+          <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            </svg>
+            {{ store.currentUser()?.username }}
+          </span>
+          <button type="button" (click)="logout()" class="hover:text-emerald-300 transition-colors">
+            Déconnexion
+          </button>
+          } @else {
+          <a routerLink="/login" class="flex items-center gap-2 hover:text-emerald-300 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            </svg>
+            Se connecter
+          </a>
+          }
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="bg-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+      <div class="flex items-center justify-center gap-3 py-3">
+        <a routerLink="/products" class="px-4 py-2 rounded-full text-sm font-medium text-white bg-slate-700">
+          Produits
+        </a>
+        <a routerLink="/categories" class="px-4 py-2 rounded-full text-sm font-medium text-white bg-slate-700">
+          Catégories
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>

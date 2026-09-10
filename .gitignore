@@ -42,3 +42,7 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Suivi pédagogique personnel (Dédale)
+/CLAUDE.md
+/public/.claude/
